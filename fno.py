@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 url = 'http://kgd.gov.kz/ru/content/fno-na-2018-god-1'
-
+fnos = ['200.00', '300.00', '328.00']
 
 def get_html(url):
     r = requests.get(url)
@@ -19,7 +19,7 @@ def search_fno(get_tr):
     fno = []
     for f in get_tr:
         s = f.find('p')
-        if s.get_text() == '320.00':
+        if s.get_text() in fnos:
             fno.append(f)
     return fno
 
