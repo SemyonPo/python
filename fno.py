@@ -11,10 +11,11 @@ def get_html(url):
 
 def get_tr(html):
     soup = BeautifulSoup(html, 'lxml')
-    td = soup.find('tbody').find_all('tr')[13:].find_all('td')
+    table = soup.find('tbody').find_all('tr')[13:]
+    #find_all('td')
     
-    print(td)
-    return td
+    #print(table)
+    return table
 
 
 def search_fno(get_tr):
