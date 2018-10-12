@@ -10,9 +10,11 @@ def get_html(url):
 
 
 def get_tr(html):
-    soup = BeautifulSoup(html.text, 'lxml')
-    tr = soup.find('td').find_all('tr')[13]
-    return tr
+    soup = BeautifulSoup(html, 'lxml')
+    td = soup.find('tbody').find_all('tr')[13:].find_all('td')
+    
+    print(td)
+    return td
 
 
 def search_fno(get_tr):
@@ -25,7 +27,8 @@ def search_fno(get_tr):
 
  
 def main():
-    print(search_fno(get_tr(get_html)))
+    a = (search_fno(get_tr(get_html(url))))
+    print(a)
 
 if __name__ == '__main__':
     main()
