@@ -12,9 +12,6 @@ def get_html(url):
 def get_tr(html):
     soup = BeautifulSoup(html, 'lxml')
     table = soup.find('tbody').find_all('tr')[13:]
-    #find_all('td')
-    
-    #print(table)
     return table
 
 
@@ -22,7 +19,7 @@ def search_fno(get_tr):
     fno = []
     for f in get_tr:
         s = f.find('p')
-        if s.get_text() == '300.00':
+        if s.get_text() == '320.00':
             fno.append(f)
     return fno
 
