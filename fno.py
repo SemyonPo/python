@@ -2,7 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 
 url = 'http://kgd.gov.kz/ru/content/fno-na-2018-god-1'
-fnos = ['200.00', '300.00', '328.00']
+fnos = ['100.00', '101.01', '101.02', '101.04', 
+        '320.00', '200.00', '300.00', '328.00', 
+        '870.00', '590.00', '701.00', '700.00', 
+        '851.00'
+        ]
 
 def get_html(url):
     r = requests.get(url)
