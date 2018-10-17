@@ -28,7 +28,10 @@ def search_fno(get_tr):
     return fno
 
 def create_sub_list(list):
-     b = []
+     b = [][]
+     for i in range(len(list)):
+             for j in range(6)
+             b.append([i][j])
      return b
       
  
