@@ -28,7 +28,8 @@ def search_fno(get_tr):
     return fno
 
 def create_sub_list(list):
-
+     b = []
+     return b
       
  
 def main():
