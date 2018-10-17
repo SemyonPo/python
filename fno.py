@@ -27,6 +27,9 @@ def search_fno(get_tr):
             fno.append(f)
     return fno
 
+def create_sub_list(list):
+
+      
  
 def main():
     a = (search_fno(get_tr(get_html(url))))
