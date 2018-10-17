@@ -27,17 +27,20 @@ def search_fno(get_tr):
             fno.append(f)
     return fno
 
+
 def create_sub_list(list):
-     b = [][]
+     b = [[],[],[],[],[],[],[],[],[],[],[],[],[]]
      for i in range(len(list)):
-             for j in range(6)
-             b.append([i][j])
+        
+        b[i].append(s.get_text)
+
      return b
       
  
 def main():
     a = (search_fno(get_tr(get_html(url))))
-    print(a)
+    b = create_sub_list(a)
+    print(b)
 
 if __name__ == '__main__':
     main()
