@@ -5,8 +5,7 @@ url = 'http://kgd.gov.kz/ru/content/fno-na-2018-god-1'
 fnos = ['100.00', '101.01', '101.02', '101.04', 
         '320.00', '200.00', '300.00', '328.00', 
         '870.00', '590.00', '701.00', '700.00', 
-        '851.00'
-        ]
+        '851.00']
 
 def get_html(url):
     r = requests.get(url)
@@ -29,18 +28,20 @@ def search_fno(get_tr):
 
 
 def create_sub_list(list):
-     b = [[],[],[],[],[],[],[],[],[],[],[],[],[]]
+     b = []
      for i in range(len(list)):
-        
-        b[i].append(s.get_text)
+        b.append([])
 
+     for c in range(len(list)):
+             for j in range(len(list)):
+                     b[c][j].append(list)
      return b
       
  
 def main():
     a = (search_fno(get_tr(get_html(url))))
     b = create_sub_list(a)
-    print(b)
+    print(a)
 
 if __name__ == '__main__':
     main()
