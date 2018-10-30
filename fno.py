@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import re
 
 url = 'http://kgd.gov.kz/ru/content/fno-na-2018-god-1'
 fnos = ['100.00', '101.01', '101.02', '101.04', 
@@ -30,17 +31,24 @@ def search_fno(get_tr):
 def create_sub_list(list):
      b = []
      for i in range(len(list)):
-        b.append([])
+        b[i].append([])
 
      for c in range(len(list)):
-             for j in range(len(list)):
-                     b[c][j].append(list)
+             for j in list[c]:
+                     result = re.match(r'(\d{3}\.\d{2})', j)
+                     b[c][j].append(result)
+                     
+                     result2 = re.match(r'(>\d{2}.?<)|(ftp.*2)', j)
+                     b[c][j+1].append(result2)
+                     
+                     result3 = re.match(r'(ftp.*2)', j)
+                     b[c][j+1].append(result3)
      return b
       
  
 def main():
-    a = (search_fno(get_tr(get_html(url))))
-    b = create_sub_list(a)
+    a = search_fno(get_tr(get_html(url)))
+    #b = create_sub_list(a)
     print(a)
 
 if __name__ == '__main__':
