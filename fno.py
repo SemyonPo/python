@@ -36,13 +36,13 @@ def create_sub_list(list):
      for c in range(len(list)):
              for j in list[c]:
                      result = re.match(r'(\d{3}\.\d{2})', j)
-                     b[c][j].append(result)
+                     b[c][0].append(result)
                      
                      result2 = re.match(r'(>\d{2}.?<)|(ftp.*2)', j)
-                     b[c][j+1].append(result2)
+                     b[c][1].append(result2)
                      
                      result3 = re.match(r'(ftp.*2)', j)
-                     b[c][j+1].append(result3)
+                     b[c][2].append(result3)
      return b
       
  
