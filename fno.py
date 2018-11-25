@@ -31,7 +31,7 @@ def search_fno(get_tr):
 def create_sub_list(list):
      b = []
      for i in range(len(list)):
-        b[i].append([])
+        b.append([0] * 6)
 
      for c in range(len(list)):
              for j in list[c]:
