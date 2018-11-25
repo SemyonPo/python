@@ -9,8 +9,9 @@ fnos = ['100.00', '101.01', '101.02', '101.04',
         '851.00']
 
 def get_html(url):
-    r = requests.get(url)
-    return r.text
+    res = requests.get(url)
+    res.raise_for_status()
+    return res.text
 
 
 def get_tr(html):
@@ -30,25 +31,30 @@ def search_fno(get_tr):
 
 def create_sub_list(list):
      b = []
-     for i in range(len(list)):
-        b.append([0] * 6)
+     len_list = len(fnos)
+     for i in range(len_list):
+        b.append([0] * 3)
 
-     for c in range(len(list)):
+     for c in range(len_list):
              for j in list[c]:
-                     result = re.match(r'(\d{3}\.\d{2})', j)
-                     b[c][0].append(result)
+                     text = str(list[c])
+                     code = re.compile(r'(\d{3}\.\d{2})')
+                     res_code = code.search(text).group()
+                     b[c][0] = res_code
+
+                     ver = re.compile(r'(>\d{2}.?<)')
+                     res_ver = ver.search(text).group
+                     b[c][1] = res_ver
                      
-                     result2 = re.match(r'(>\d{2}.?<)|(ftp.*2)', j)
-                     b[c][1].append(result2)
-                     
-                     result3 = re.match(r'(ftp.*2)', j)
-                     b[c][2].append(result3)
+                     link = re.compile(r'(ftp.*2)')
+                     res_link = link.search(text).group
+                     b[c][2] = res_link
      return b
       
  
 def main():
     a = search_fno(get_tr(get_html(url)))
-    #b = create_sub_list(a)
+    b = create_sub_list(a)
     print(a)
 
 if __name__ == '__main__':
