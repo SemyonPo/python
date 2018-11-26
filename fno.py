@@ -30,32 +30,34 @@ def search_fno(get_tr):
 
 
 def create_sub_list(list):
+     codeRegex = re.compile(r'\d{3}\.\d{2}')
+     verRegex = re.compile(r'>\d{2}.?<')
+     ftpRegex = re.compile(r'ftp.*2')       
+                         
      b = []
      len_list = len(fnos)
+
      for i in range(len_list):
         b.append([0] * 3)
 
      for c in range(len_list):
              for j in list[c]:
                      text = str(list[c])
-                     code = re.compile(r'(\d{3}\.\d{2})')
-                     res_code = code.search(text).group()
-                     b[c][0] = res_code
+                     code = codeRegex.search(text)
+                     verRaw = verRegex.findall(text)
+                     ver = ''.join(verRaw)   
+                     fno = ftpRegex.search(text)
+                     b[c][0] = code.group(0)
+                     b[c][1] = ver.strip('><')
+                     b[c][2] = fno.group(0)
 
-                     ver = re.compile(r'(>\d{2}.?<)')
-                     res_ver = ver.search(text).group
-                     b[c][1] = res_ver
-                     
-                     link = re.compile(r'(ftp.*2)')
-                     res_link = link.search(text).group
-                     b[c][2] = res_link
      return b
       
  
 def main():
     a = search_fno(get_tr(get_html(url)))
     b = create_sub_list(a)
-    print(a)
+    print(b)
 
 if __name__ == '__main__':
     main()
