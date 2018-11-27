@@ -58,10 +58,28 @@ def safe_list_on_hdd(list):
         shelFile['forms'] = list
         shelFile.close
 
+def check_for_new_files(list):
+        shelFile = shelve.open('formsdata')
+        savedList = shelFile['forms']
+        
+        curentList = list
+        c = 0
+        for i in range(len(curentList)):
+                a = curentList[i][1]
+                b = savedList[i][1]
+                if a == b:
+                        continue
+                else:
+                        c +=1
+
+        if c != 0:
+                print('save list on hdd')
+                safe_list_on_hdd(list)
+
 def main():
     a = search_fno(get_tr(get_html(url)))
     b = create_sub_list(a)
-    safe_list_on_hdd(b)
+    check_for_new_files(b)
     #print(b)
 
 if __name__ == '__main__':
