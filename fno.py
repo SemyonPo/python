@@ -16,12 +16,10 @@ def get_html(url):
     res.raise_for_status()
     return res.text
 
-
 def get_tr(html):
     soup = BeautifulSoup(html, 'lxml')
     table = soup.find('tbody').find_all('tr')[13:]
     return table
-
 
 def search_fno(get_tr):
     fno = []
@@ -30,7 +28,6 @@ def search_fno(get_tr):
         if s.get_text() in fnos:
             fno.append(f)
     return fno
-
 
 def create_sub_list(list):
      codeRegex = re.compile(r'\d{3}\.\d{2}')
@@ -49,10 +46,10 @@ def create_sub_list(list):
                      code = codeRegex.search(text)
                      verRaw = verRegex.findall(text)
                      ver = ''.join(verRaw)   
-                     fno = ftpRegex.search(text)
+                     ftp = ftpRegex.search(text)
                      list_forms[c][0] = code.group(0)
                      list_forms[c][1] = ver.strip('><')
-                     list_forms[c][2] = fno.group(0)
+                     list_forms[c][2] = ftp.group(0)
      return list_forms
       
 def safe_list_on_hdd(list):
@@ -72,16 +69,16 @@ def check_for_new_files(list):
                 b = savedList[i][1]
                 print(b)
                 if a == b:
-                        print('происходит проверка равенства')
+                        print('check curent version done')
                         continue
                 else:
                         link = curentList[i][2]
-                        print('start download ' + link)
+                        print('start download ' + curentList[i][0])
                         download_forms(link)
-                        c +=1
+                        c += 1
 
         if c != 0:
-                print('save list on hdd')
+                print('save curent list on hdd')
                 safe_list_on_hdd(list)
         
         print(c)
@@ -89,13 +86,12 @@ def check_for_new_files(list):
 def download_forms(link):
         file_name = os.path.basename(link)
         urllib.request.urlretrieve(link, file_name)
-        print('end download ' + link)
+        print('end download ' + file_name)
 
 def main():
     a = search_fno(get_tr(get_html(url)))
     b = create_sub_list(a)
     check_for_new_files(b)
-    #print(b)
 
 if __name__ == '__main__':
     main()
