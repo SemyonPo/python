@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import shelve
+import urllib.request
+import os
 
 url = 'http://kgd.gov.kz/ru/content/fno-na-2018-god-1'
 fnos = ['100.00', '101.01', '101.02', '101.04', 
@@ -61,20 +63,33 @@ def safe_list_on_hdd(list):
 def check_for_new_files(list):
         shelFile = shelve.open('formsdata')
         savedList = shelFile['forms']
-        
         curentList = list
         c = 0
+        
         for i in range(len(curentList)):
                 a = curentList[i][1]
+                print(a)
                 b = savedList[i][1]
+                print(b)
                 if a == b:
+                        print('происходит проверка равенства')
                         continue
                 else:
+                        link = curentList[i][2]
+                        print('start download ' + link)
+                        download_forms(link)
                         c +=1
 
         if c != 0:
                 print('save list on hdd')
                 safe_list_on_hdd(list)
+        
+        print(c)
+
+def download_forms(link):
+        file_name = os.path.basename(link)
+        urllib.request.urlretrieve(link, file_name)
+        print('end download ' + link)
 
 def main():
     a = search_fno(get_tr(get_html(url)))
