@@ -77,9 +77,7 @@ def check_for_new_files(list):
         b = savedList[i][1]
         print('saved ver ' + savedList[i][0])
         print(b)
-        if a == b:
-            print('check curent version done')
-        else:
+        if a != b:
             link = curentList[i][2]
             print('+----------------------------------------------+')
             print('start download ' + curentList[i][0])
