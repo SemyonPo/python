@@ -8,7 +8,10 @@ import datetime
 
 dt = datetime.datetime.now()
 year = dt.year
-print(year)
+day = dt.day
+month = dt.month
+curent_date = str(day) + '.' + str(month)
+print(curent_date)
 url = 'http://kgd.gov.kz/ru/content/fno-na-%s-god-1' %year
 print(url)
 print('+----------------------------------------------+')
@@ -86,12 +89,25 @@ def check_for_new_files(list):
 
         if c != 0:
             print('save curent list on hdd')
+            os.chdir('D:\python\python')
             safe_list_on_hdd(list)
     print('+----------------------------------------------+')
     print('quantity of downloaded files - ' + str(c))
 
 def download_forms(link):
+    
     file_name = os.path.basename(link)
+    
+    if  os.path.exists('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year):
+        os.chdir('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year)
+        os.makedirs(curent_date)
+    else:
+        os.makedirs('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year)
+        os.chdir('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year)
+        os.makedirs(curent_date)
+
+    os.chdir('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year)
+    os.chdir(curent_date)
     urllib.request.urlretrieve(link, file_name)
     print('end download ' + file_name)
     print('+----------------------------------------------+')
