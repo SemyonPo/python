@@ -5,13 +5,17 @@ import shelve
 import urllib.request
 import os
 import datetime
+import smtplib
 
 dt = datetime.datetime.now()
 year = dt.year
 day = dt.day
 month = dt.month
 curent_date = str(day) + '.' + str(month)
-print(curent_date)
+emails = ['pokivaylo@rakhat.kz', 'tishina@rakhat.kz', 'karacheva@rakhat.kz',
+         'jigitova@rakhat.kz', 'g_tuleuova@rakhat.kz', 'nemchenko@rakhat.kz']
+body = "Subject: Sono Forms.\nОбновленные формы SONO находятся в каталоге: Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s\\%s" % (year, curent_date)
+
 url = 'http://kgd.gov.kz/ru/content/fno-na-%s-god-1' %year
 print(url)
 print('+----------------------------------------------+')
@@ -89,8 +93,9 @@ def check_for_new_files(list):
 
         if c != 0:
             print('save curent list on hdd')
-            os.chdir('D:\python\python')
+            os.chdir('D:\\python\\python')
             safe_list_on_hdd(list)
+            smtp()
     print('+----------------------------------------------+')
     print('quantity of downloaded files - ' + str(c))
 
@@ -111,6 +116,14 @@ def download_forms(link):
     urllib.request.urlretrieve(link, file_name)
     print('end download ' + file_name)
     print('+----------------------------------------------+')
+
+def smtp():
+    smtpObj = smtplib.SMTP('10.128.0.0', 587)
+    smtpObj.ehlo()
+    smtpObj.starttls()
+    smtpObj.login('pokivaylo', 'test1234')
+    smtpObj.sendmail('pokivaylo@rakhat.kz', emails, body.encode('cp866'))
+    smtpObj.quit()
 
 def main():
     a = search_fno(get_tr(get_html(url)))
