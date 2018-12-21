@@ -103,9 +103,10 @@ def download_forms(link):
     
     file_name = os.path.basename(link)
     
-    if  os.path.exists('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year):
+    if os.path.exists('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year):
         os.chdir('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year)
-        os.makedirs(curent_date)
+        if os.path.exists('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s\\%s' %(year, curent_date)) == False:
+            os.makedirs(curent_date)
     else:
         os.makedirs('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year)
         os.chdir('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year)
