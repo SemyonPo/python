@@ -22,7 +22,7 @@ print('+----------------------------------------------+')
 fnos = ['100.00', '101.01', '101.02', '101.04', 
         '320.00', '200.00', '300.00', '328.00', 
         '870.00', '590.00', '701.01', '700.00', 
-        '851.00', '220.00',]
+        '851.00', '220.00', '871.00',]
 
 def get_html(url):
     res = requests.get(url)
@@ -44,7 +44,7 @@ def search_fno(get_tr):
 
 def create_sub_list(list):
     codeRegex = re.compile(r'\d{3}\.\d{2}')
-    verRegex = re.compile(r'>\d{2}.?<')
+    verRegex = re.compile(r'>\d.?.?<')
     ftpRegex = re.compile(r'ftp.*2')       
                          
     list_forms = []
@@ -66,7 +66,7 @@ def create_sub_list(list):
     return list_forms
       
 def safe_list_on_hdd(list):
-    print('starting safe')
+    print('start safing')
     shelFile = shelve.open('formsdata')
     shelFile['forms'] = list
     shelFile.close
@@ -87,17 +87,17 @@ def check_for_new_files(list):
         if a != b:
             link = curentList[i][2]
             print('+----------------------------------------------+')
-            print('start download ' + curentList[i][0])
+            print('start downloading ' + curentList[i][0])
             download_forms(link)
             c += 1
 
-        if c != 0:
-            print('save curent list on hdd')
-            os.chdir('D:\\python\\python')
-            safe_list_on_hdd(list)
-            smtp()
+    if c != 0:
+        print('save curent list on hdd')
+        os.chdir('D:\\python\\python')
+        safe_list_on_hdd(list)
+        smtp()
     print('+----------------------------------------------+')
-    print('quantity of downloaded files - ' + str(c))
+    print('number of downloaded files - ' + str(c))
 
 def download_forms(link):
     
@@ -115,7 +115,7 @@ def download_forms(link):
     os.chdir('Q:\\ASU_ARM\\TAX\\SONO_Forms\\%s' %year)
     os.chdir(curent_date)
     urllib.request.urlretrieve(link, file_name)
-    print('end download ' + file_name)
+    print('end downloading ' + file_name)
     print('+----------------------------------------------+')
 
 def smtp():
