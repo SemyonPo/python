@@ -66,7 +66,7 @@ def create_sub_list(list):
     return list_forms
       
 def safe_list_on_hdd(list):
-    print('start safing')
+    print('start saving')
     shelFile = shelve.open('formsdata')
     shelFile['forms'] = list
     shelFile.close
